@@ -11,7 +11,8 @@ module.exports = {
         themeDarkGrey: '#333533',
       },
       fontFamily: {
-        body: ['Quicksand', 'Nunito'],
+        body: ['Nunito', 'Quicksand'],
+        title: ['Indie Flower'],
       },
     },
   },
