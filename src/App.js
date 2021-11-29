@@ -1,11 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { connect } from './redux/blockchain/blockchainActions';
 import { fetchData } from './redux/data/dataActions';
-import { AnimatePresence } from 'framer-motion';
 // import { create } from 'ipfs-http-client';
-// import Header from './components/Header';
 import Page from './components/Page';
 import Connect from './components/Connect';
 import Content from './components/Content';
@@ -18,7 +16,6 @@ import Modal from './components/Modal';
 function App() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation();
   const blockchain = useSelector(state => state.blockchain);
   const data = useSelector(state => state.data);
 

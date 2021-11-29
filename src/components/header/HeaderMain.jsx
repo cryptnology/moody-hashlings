@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import disconnect from '../../images/disconnect.svg';
+import disconnect from '../../images/shutdown.png';
+import burgerMenu from '../../images/burgerMenu.svg';
 
-const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
+const HeaderMain = ({ account, network, balance }) => {
   const blockchainExplorerURL = account => {
     if (network === 'Rinkeby') {
       return `https://rinkeby.etherscan.io/address/${account}`;
@@ -23,25 +24,28 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
     <div className='header px-4'>
       <header className='container mx-auto'>
         <div className='flex py-4 items-center'>
-          <div className='cursor-pointer lg:hidden mr-4'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='h-6 w-6 hover:text-themeYellow'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
+          <motion.div
+            initial={{ y: -250 }}
+            animate={{ y: 0 }}
+            transition={{
+              delay: 1.4,
+              type: 'spring',
+              stiffness: 50,
+            }}
+            className='cursor-pointer lg:hidden mr-5'
+          >
+            <motion.img
               onClick={e => menu(e)}
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M4 6h16M4 12h16M4 18h16'
-              />
-            </svg>
-          </div>
+              src={burgerMenu}
+              alt='Burger menu'
+              width={35}
+              whileHover={{ scale: 1.2 }}
+            />
+          </motion.div>
           {/* <img className='mr-3 rounded-full h-7 w-7' alt='logo' src={logo} /> */}
-          <h1 className='font-title text-white text-xl'>Moody Hashlings</h1>
+          <h1 className='font-title text-themeLightBlue text-2xl'>
+            MOODY HASHLINGS
+          </h1>
           <div className='hidden lg:inline-flex'>
             <ul className='flex'>
               <motion.li
@@ -52,10 +56,18 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
                   type: 'spring',
                   stiffness: 50,
                 }}
-                className='ml-6'
+                className='ml-5'
               >
-                <Link className='font-title text-white' to='/home'>
-                  <span>Home</span>
+                <Link
+                  className='font-title text-lg  text-themeLightBlue'
+                  to='/home'
+                >
+                  <motion.button
+                    className=' tracking-widest'
+                    whileHover={{ scale: 1.2 }}
+                  >
+                    Home
+                  </motion.button>
                 </Link>
               </motion.li>
               <motion.li
@@ -66,15 +78,20 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
                   type: 'spring',
                   stiffness: 50,
                 }}
-                className='ml-3 font-title text-white'
+                className='ml-5 font-title text-lg text-themeLightBlue'
               >
                 <Link to='/page'>
-                  <span>Page</span>
+                  <motion.button
+                    className=' tracking-widest'
+                    whileHover={{ scale: 1.2 }}
+                  >
+                    Page
+                  </motion.button>
                 </Link>
               </motion.li>
             </ul>
           </div>
-          <ul className='flex items-center ml-auto'>
+          <ul className='flex text-lg items-center ml-auto'>
             <motion.li
               initial={{ y: -250 }}
               animate={{ y: 0 }}
@@ -83,7 +100,7 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
                 type: 'spring',
                 stiffness: 50,
               }}
-              className='mr-3 hidden lg:inline-flex font-title text-white'
+              className='mr-5 hidden lg:inline-flex font-title text-themeLightBlue'
             >
               {network}
             </motion.li>
@@ -95,7 +112,7 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
                 type: 'spring',
                 stiffness: 50,
               }}
-              className='mr-1 hidden sm:inline-flex  text-white'
+              className='mr-1 hidden sm:inline-flex font-title  text-themeLightBlue'
             >
               {balance}
             </motion.li>
@@ -107,7 +124,7 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
                 type: 'spring',
                 stiffness: 50,
               }}
-              className='mr-3 hidden sm:inline-flex font-title font-bold text-white'
+              className='mr-5 hidden sm:inline-flex font-title font-bold text-themeLightBlue'
             >
               {network === 'Rinkeby' ? 'ETH' : 'MATIC'}
             </motion.li>
@@ -125,7 +142,7 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
                 className='font-title text-white'
               >
                 <a
-                  className='font-title text-white text-lg'
+                  className='font-title tracking-widest text-themeLightBlue  mr-5'
                   href={blockchainExplorerURL(account)}
                   target='_blank'
                   rel='noopener noreferrer'
@@ -160,15 +177,28 @@ const HeaderMain = ({ account, dispatch, connect, network, balance }) => {
           </ul>
         </div>
         <div className='hidden lg:hidden' id='menu'>
-          <ul className='flex justify-center'>
-            <li className=' mr-4 mt-4' onClick={e => menu(e)}>
-              <Link className='text-white' to='/home'>
-                <span>Home</span>
+          <ul className='flex text-lg justify-center'>
+            <li onClick={e => menu(e)}>
+              <Link className='font-title  text-themeLightBlue' to='/home'>
+                <motion.button
+                  className=' tracking-widest'
+                  whileHover={{ scale: 1.2 }}
+                >
+                  Home
+                </motion.button>
               </Link>
             </li>
-            <li className='mr-4 mt-4 text-white' onClick={e => menu(e)}>
+            <li
+              onClick={e => menu(e)}
+              className='ml-5 font-title text-themeLightBlue'
+            >
               <Link to='/page'>
-                <span>Page</span>
+                <motion.button
+                  className=' tracking-widest'
+                  whileHover={{ scale: 1.2 }}
+                >
+                  Page
+                </motion.button>
               </Link>
             </li>
           </ul>

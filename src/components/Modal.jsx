@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import back from '../images/disconnect.svg';
-import { Link } from 'react-router-dom';
+import close from '../images/close.svg';
 
 const backdrop = {
   visible: { opacity: 1 },
@@ -21,7 +20,7 @@ const modal = {
 const Modal = ({ errorMsg, showModal, setShowModal }) => {
   useEffect(() => {
     setShowModal(true);
-  }, []);
+  }, [setShowModal]);
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -38,7 +37,7 @@ const Modal = ({ errorMsg, showModal, setShowModal }) => {
               <button onClick={() => setShowModal(false)}>
                 <motion.img
                   whileHover={{ scale: 1.2 }}
-                  src={back}
+                  src={close}
                   width={30}
                   alt='back button'
                 />
