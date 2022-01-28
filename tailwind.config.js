@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        themeLightBlue: '#edf2fb',
+        themeLightBlue: '#174463;',
       },
       fontFamily: {
         body: ['Nunito', 'Quicksand'],

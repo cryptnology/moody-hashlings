@@ -17,13 +17,14 @@
 }
 
 body {
-  background: rgb(31, 91, 134);
+  background: #ccdbfd;
   height: 100%;
   letter-spacing: 2px;
 }
 
 .header {
-  background: rgb(31, 91, 134);
+  /* background: rgb(31, 91, 134); */
+  background: #ccdbfd;
   position: fixed;
   top: 0;
   right: 0;
@@ -31,7 +32,7 @@ body {
 }
 
 .footer {
-  background: rgb(31, 91, 134);
+  background: #ccdbfd;
   position: fixed;
   right: 0;
   bottom: 0;
