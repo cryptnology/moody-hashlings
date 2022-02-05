@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import { SocialLinks, ConnectWallet } from '../components';
+import { SocialLinks, ConnectWallet } from '../../common';
 
 export function HeaderLanding({ connect, dispatch }) {
   return (
@@ -12,7 +12,6 @@ export function HeaderLanding({ connect, dispatch }) {
           animate={{ y: 0 }}
           transition={{ delay: 0.2, type: 'spring', stiffness: 50 }}
         >
-          {/* <img className='mr-3 rounded-full h-7 w-7' alt='logo' src={logo} /> */}
           <h1 className='font-title text-themeLightBlue text-2xl'>
             MOODY HASHLINGS
           </h1>
