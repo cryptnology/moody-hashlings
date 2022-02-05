@@ -8,8 +8,7 @@ import Page from './components/Page';
 import Connect from './components/Connect';
 import Content from './components/Content';
 import FooterMain from './components/footer/FooterMain';
-import { HeaderLanding } from 'components';
-import HeaderMain from './components/Header/HeaderMain';
+import { HeaderLanding, HeaderMain } from 'components';
 import FooterLanding from './components/footer/FooterLanding';
 import Modal from './components/Modal';
 
@@ -30,11 +29,7 @@ function App() {
       <div>
         {blockchain.account === '' || blockchain.smartContract === null ? (
           <>
-            <HeaderLanding
-              connect={connect}
-              dispatch={dispatch}
-              account={blockchain.account}
-            />
+            <HeaderLanding />
             {blockchain.errorMsg && (
               <Modal
                 showModal={showModal}
@@ -55,8 +50,6 @@ function App() {
           <>
             <HeaderMain
               account={blockchain.account}
-              dispatch={dispatch}
-              connect={connect}
               network={blockchain.network}
               balance={blockchain.balance}
             />

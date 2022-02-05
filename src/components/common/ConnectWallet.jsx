@@ -1,11 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { connect } from 'redux/blockchain/blockchainActions';
 
 import { motion } from 'framer-motion';
 
 import wallet from 'images/wallet.png';
 
-export function ConnectWallet({ connect, dispatch }) {
+export function ConnectWallet() {
+  const dispatch = useDispatch();
+
   return (
     <>
       <Link
