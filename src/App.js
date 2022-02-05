@@ -7,9 +7,7 @@ import { fetchData } from './redux/data/dataActions';
 import Page from './components/Page';
 import Connect from './components/Connect';
 import Content from './components/Content';
-import FooterMain from './components/footer/FooterMain';
-import { HeaderLanding, HeaderMain } from 'components';
-import FooterLanding from './components/footer/FooterLanding';
+import { HeaderLanding, HeaderMain, Footer } from 'components';
 import Modal from './components/Modal';
 
 function App() {
@@ -43,7 +41,7 @@ function App() {
               connect={connect}
             />
             <div className='pt-28 md:hidden'>
-              <FooterLanding />
+              <Footer />
             </div>
           </>
         ) : (
@@ -68,7 +66,7 @@ function App() {
               <Redirect from='/' exact to='/home' />
             </Switch>
             <div className='pt-28'>
-              <FooterMain />
+              <Footer />
             </div>
           </>
         )}

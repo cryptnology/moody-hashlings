@@ -8,14 +8,18 @@ import linkedin from 'images/linkedin.svg';
 import gitHub from 'images/github.svg';
 import website from 'images/website.png';
 
-export function SocialLinks() {
+export function SocialLinks({ footer }) {
   return (
     <>
       <motion.div
         className='mr-4'
-        initial={{ y: -250 }}
+        initial={footer ? { y: 250 } : { y: -250 }}
         animate={{ y: 0 }}
-        transition={{ delay: 2.8, type: 'spring', stiffness: 50 }}
+        transition={
+          footer
+            ? { delay: 2, type: 'spring', stiffness: 50 }
+            : { delay: 2.8, type: 'spring', stiffness: 50 }
+        }
       >
         <a
           href='http://www.cryptnology.dev'
@@ -32,9 +36,13 @@ export function SocialLinks() {
       </motion.div>
       <motion.div
         className='mr-4'
-        initial={{ y: -250 }}
+        initial={footer ? { y: 250 } : { y: -250 }}
         animate={{ y: 0 }}
-        transition={{ delay: 2.6, type: 'spring', stiffness: 50 }}
+        transition={
+          footer
+            ? { delay: 2.2, type: 'spring', stiffness: 50 }
+            : { delay: 2.6, type: 'spring', stiffness: 50 }
+        }
       >
         <a
           href='https://github.com/cryptnology'
@@ -50,9 +58,13 @@ export function SocialLinks() {
         </a>
       </motion.div>
       <motion.div
-        initial={{ y: -250 }}
+        initial={footer ? { y: 250 } : { y: -250 }}
         animate={{ y: 0 }}
-        transition={{ delay: 2.4, type: 'spring', stiffness: 50 }}
+        transition={
+          footer
+            ? { delay: 2.4, type: 'spring', stiffness: 50 }
+            : { delay: 2.4, type: 'spring', stiffness: 50 }
+        }
       >
         <a
           href='https://www.linkedin.com/in/jamie-anderson-121061200/'
@@ -69,9 +81,13 @@ export function SocialLinks() {
       </motion.div>
       <motion.div
         className='mx-4'
-        initial={{ y: -250 }}
+        initial={footer ? { y: 250 } : { y: -250 }}
         animate={{ y: 0 }}
-        transition={{ delay: 2.2, type: 'spring', stiffness: 50 }}
+        transition={
+          footer
+            ? { delay: 2.6, type: 'spring', stiffness: 50 }
+            : { delay: 2.2, type: 'spring', stiffness: 50 }
+        }
       >
         <a
           href='https://twitter.com/CryptnologyDev'
@@ -87,9 +103,13 @@ export function SocialLinks() {
         </a>
       </motion.div>
       <motion.div
-        initial={{ y: -250 }}
+        initial={footer ? { y: 250 } : { y: -250 }}
         animate={{ y: 0 }}
-        transition={{ delay: 2, type: 'spring', stiffness: 50 }}
+        transition={
+          footer
+            ? { delay: 2.8, type: 'spring', stiffness: 50 }
+            : { delay: 2, type: 'spring', stiffness: 50 }
+        }
       >
         <a
           href='https://www.youtube.com/channel/UCNkysjhjqXLpfONboDG1E_Q'
