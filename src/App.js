@@ -8,8 +8,8 @@ import Page from './components/Page';
 import Connect from './components/Connect';
 import Content from './components/Content';
 import FooterMain from './components/footer/FooterMain';
-import HeaderLanding from './components/header/HeaderLanding';
-import HeaderMain from './components/header/HeaderMain';
+import { HeaderLanding } from 'components';
+import HeaderMain from './components/Header/HeaderMain';
 import FooterLanding from './components/footer/FooterLanding';
 import Modal from './components/Modal';
 
@@ -47,7 +47,7 @@ function App() {
               dispatch={dispatch}
               connect={connect}
             />
-            <div className='pt-28 sm:hidden'>
+            <div className='pt-28 md:hidden'>
               <FooterLanding />
             </div>
           </>
