@@ -1,16 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { connect } from './redux/blockchain/blockchainActions';
 import { fetchData } from './redux/data/dataActions';
 // import { create } from 'ipfs-http-client';
-import Header from './components/Header';
 import Page from './components/Page';
 import Connect from './components/Connect';
 import Content from './components/Content';
-import Footer from './components/Footer';
+import FooterMain from './components/footer/FooterMain';
+import HeaderLanding from './components/header/HeaderLanding';
+import HeaderMain from './components/header/HeaderMain';
+import FooterLanding from './components/footer/FooterLanding';
+import Modal from './components/Modal';
 
 function App() {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const blockchain = useSelector(state => state.blockchain);
   const data = useSelector(state => state.data);
@@ -23,35 +27,58 @@ function App() {
 
   return (
     <div className='font-body'>
-      <Header
-        account={blockchain.account}
-        dispatch={dispatch}
-        connect={connect}
-        network={blockchain.network}
-        balance={blockchain.balance}
-      />
       <div>
         {blockchain.account === '' || blockchain.smartContract === null ? (
-          <Connect errorMsg={blockchain.errorMsg} />
-        ) : (
-          <Switch>
-            <Route path='/page'>
-              <Page />
-            </Route>
-            <Route path='/home'>
-              <Content
-                account={blockchain.account}
-                smartContract={blockchain.smartContract}
-                errorMessage={blockchain.errorMsg}
-                data={data}
+          <>
+            <HeaderLanding
+              connect={connect}
+              dispatch={dispatch}
+              account={blockchain.account}
+            />
+            {blockchain.errorMsg && (
+              <Modal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                errorMsg={blockchain.errorMsg}
               />
-            </Route>
-            <Redirect from='/' exact to='/home' />
-          </Switch>
+            )}
+            <Connect
+              errorMsg={blockchain.errorMsg}
+              dispatch={dispatch}
+              connect={connect}
+            />
+            <div className='pt-28 sm:hidden'>
+              <FooterLanding />
+            </div>
+          </>
+        ) : (
+          <>
+            <HeaderMain
+              account={blockchain.account}
+              dispatch={dispatch}
+              connect={connect}
+              network={blockchain.network}
+              balance={blockchain.balance}
+            />
+            <Switch>
+              <Route path='/page'>
+                <Page />
+              </Route>
+              <Route path='/home'>
+                <Content
+                  account={blockchain.account}
+                  smartContract={blockchain.smartContract}
+                  errorMessage={blockchain.errorMsg}
+                  data={data}
+                />
+              </Route>
+              <Redirect from='/' exact to='/home' />
+            </Switch>
+            <div className='pt-28'>
+              <FooterMain />
+            </div>
+          </>
         )}
-        <div className='pt-28'>
-          <Footer />
-        </div>
       </div>
     </div>
   );

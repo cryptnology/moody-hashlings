@@ -4,14 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        themeGrey: '#d6d6d6',
-        themeYellow: '#ffee32',
-        themeOrange: '#ffd100',
-        themeBlack: '#202020',
-        themeDarkGrey: '#333533',
+        themeLightBlue: '#174463;',
       },
       fontFamily: {
-        body: ['Quicksand', 'Nunito'],
+        body: ['Nunito', 'Quicksand'],
+        // title: ['Indie Flower'],
+        title: ['Patrick Hand'],
       },
     },
   },
