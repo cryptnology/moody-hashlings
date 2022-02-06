@@ -10,7 +10,7 @@ export function BurgerMenu({ account, network, balance, menu }) {
     <div className='hidden lg:hidden' id='menu'>
       <ul className='flex text-lg justify-center'>
         <li onClick={e => menu(e)}>
-          <Link className='font-title text-themeLightBlue' to='/home'>
+          <Link to='/home'>
             <motion.button
               className=' tracking-widest'
               whileHover={{ scale: 1.2 }}
@@ -19,10 +19,7 @@ export function BurgerMenu({ account, network, balance, menu }) {
             </motion.button>
           </Link>
         </li>
-        <li
-          onClick={e => menu(e)}
-          className='ml-5 font-title text-themeLightBlue'
-        >
+        <li onClick={e => menu(e)} className='ml-5 '>
           <Link to='/page'>
             <motion.button
               className=' tracking-widest'

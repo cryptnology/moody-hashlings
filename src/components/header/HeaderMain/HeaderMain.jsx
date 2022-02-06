@@ -36,9 +36,7 @@ export function HeaderMain({ account, network, balance }) {
               whileHover={{ scale: 1.2 }}
             />
           </motion.div>
-          <h1 className='font-title text-themeLightBlue text-2xl'>
-            MOODY HASHLINGS
-          </h1>
+          <h1 className='text-2xl'>MOODY HASHLINGS</h1>
           <div className='hidden lg:inline-flex'>
             <ul className='flex'>
               <motion.li
@@ -51,10 +49,7 @@ export function HeaderMain({ account, network, balance }) {
                 }}
                 className='ml-5'
               >
-                <Link
-                  className='font-title text-lg  text-themeLightBlue'
-                  to='/home'
-                >
+                <Link className='text-lg' to='/home'>
                   <motion.button
                     className=' tracking-widest'
                     whileHover={{ scale: 1.2 }}
@@ -71,7 +66,7 @@ export function HeaderMain({ account, network, balance }) {
                   type: 'spring',
                   stiffness: 50,
                 }}
-                className='ml-5 font-title text-lg text-themeLightBlue'
+                className='ml-5 text-lg'
               >
                 <Link to='/page'>
                   <motion.button
