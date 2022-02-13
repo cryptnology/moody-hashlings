@@ -10,6 +10,8 @@ contract NFT is ERC721Enumerable, Ownable {
 
   string public baseURI;
   string public baseUriSecondary;
+  string public baseUriThird;
+  string public baseUriForth;
   string public baseExtension = '.json';
   uint256 public cost = 0.1 ether;
   uint256 public maxSupply = 1000;
@@ -19,22 +21,29 @@ contract NFT is ERC721Enumerable, Ownable {
   bool public onlyWhitelisted = false;
   address[] public whitelistedAddresses;
   mapping(address => uint256) public addressMintedBalance;
-  mapping(uint256 => Token) private tokenToOwner;
+  mapping(uint256 => Token) public tokenToOwner;
 
   constructor(
     string memory _name,
     string memory _symbol,
     string memory _initBaseURI,
-    string memory _initbaseUriSecondary
+    string memory _initbaseUriSecondary,
+    string memory _initbaseUriThird,
+    string memory _initbaseUriForth
   ) ERC721(_name, _symbol) {
     setBaseURI(_initBaseURI);
     setBaseUriSecondary(_initbaseUriSecondary);
+    setBaseUriThird(_initbaseUriThird);
+    setBaseUriForth(_initbaseUriForth);
   }
 
   struct Token {
     address owner;
     uint256 itemId;
-    bool changeUri;
+    bool happy;
+    bool sad;
+    bool angry;
+    bool tired;
   }
 
   // internal
@@ -44,6 +53,14 @@ contract NFT is ERC721Enumerable, Ownable {
 
   function _baseUriSecondary() internal view returns (string memory) {
     return baseUriSecondary;
+  }
+
+  function _baseUriThird() internal view returns (string memory) {
+    return baseUriThird;
+  }
+
+  function _baseUriForth() internal view returns (string memory) {
+    return baseUriForth;
   }
 
   // public
@@ -74,7 +91,14 @@ contract NFT is ERC721Enumerable, Ownable {
       _safeMint(msg.sender, supply + i);
     }
 
-    tokenToOwner[totalSupply()] = Token(msg.sender, totalSupply(), false);
+    tokenToOwner[totalSupply()] = Token(
+      msg.sender,
+      totalSupply(),
+      true,
+      false,
+      false,
+      false
+    );
   }
 
   function isWhitelisted(address _user) public view returns (bool) {
@@ -99,7 +123,7 @@ contract NFT is ERC721Enumerable, Ownable {
     return tokenIds;
   }
 
-  function tokenURI(uint256 tokenId)
+  function tokenURI(uint256 _tokenId)
     public
     view
     virtual
@@ -107,50 +131,116 @@ contract NFT is ERC721Enumerable, Ownable {
     returns (string memory)
   {
     require(
-      _exists(tokenId),
+      _exists(_tokenId),
       'ERC721Metadata: URI query for nonexistent token'
     );
 
-    bool changeUri = tokenToOwner[tokenId].changeUri;
-    uint256 itemId = tokenToOwner[tokenId].itemId;
+    bool sadMood = tokenToOwner[_tokenId].sad;
+    bool angryMood = tokenToOwner[_tokenId].angry;
+    bool tiredMood = tokenToOwner[_tokenId].tired;
 
-    if (tokenId == itemId && changeUri) {
-      string memory currentbaseUriSecondary = _baseUriSecondary();
+    if (sadMood) {
+      string memory currentBaseUriSecondary = _baseUriSecondary();
       return
-        bytes(currentbaseUriSecondary).length > 0
+        bytes(currentBaseUriSecondary).length > 0
           ? string(
             abi.encodePacked(
-              currentbaseUriSecondary,
-              tokenId.toString(),
+              currentBaseUriSecondary,
+              _tokenId.toString(),
               baseExtension
             )
           )
           : '';
-    } else {
-      string memory currentBaseURI = _baseURI();
+    }
+    if (angryMood) {
+      string memory currentBaseUriThird = _baseUriThird();
       return
-        bytes(currentBaseURI).length > 0
+        bytes(currentBaseUriThird).length > 0
           ? string(
-            abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension)
+            abi.encodePacked(
+              currentBaseUriThird,
+              _tokenId.toString(),
+              baseExtension
+            )
           )
           : '';
     }
+    if (tiredMood) {
+      string memory currentBaseUriForth = _baseUriForth();
+      return
+        bytes(currentBaseUriForth).length > 0
+          ? string(
+            abi.encodePacked(
+              currentBaseUriForth,
+              _tokenId.toString(),
+              baseExtension
+            )
+          )
+          : '';
+    }
+    string memory currentBaseUri = _baseURI();
+    return
+      bytes(currentBaseUri).length > 0
+        ? string(
+          abi.encodePacked(currentBaseUri, _tokenId.toString(), baseExtension)
+        )
+        : '';
   }
 
-  function changeBaseURI(uint256 tokenId) public {
-    require(msg.sender == ownerOf(tokenId), 'Not the owner');
+  function changeToHappyMood(uint256 _tokenId) public {
+    require(msg.sender == ownerOf(_tokenId), 'Not the owner');
     require(
-      _exists(tokenId),
+      _exists(_tokenId),
       'ERC721Metadata: URI query for nonexistent token'
     );
+    require(!tokenToOwner[_tokenId].happy);
 
-    bool changeUri = tokenToOwner[tokenId].changeUri;
+    tokenToOwner[_tokenId].happy = true;
+    tokenToOwner[_tokenId].sad = false;
+    tokenToOwner[_tokenId].angry = false;
+    tokenToOwner[_tokenId].tired = false;
+  }
 
-    if (changeUri) {
-      tokenToOwner[tokenId].changeUri = false;
-    } else {
-      tokenToOwner[tokenId].changeUri = true;
-    }
+  function changeToSadMood(uint256 _tokenId) public {
+    require(msg.sender == ownerOf(_tokenId), 'Not the owner');
+    require(
+      _exists(_tokenId),
+      'ERC721Metadata: URI query for nonexistent token'
+    );
+    require(!tokenToOwner[_tokenId].sad);
+
+    tokenToOwner[_tokenId].happy = false;
+    tokenToOwner[_tokenId].sad = true;
+    tokenToOwner[_tokenId].angry = false;
+    tokenToOwner[_tokenId].tired = false;
+  }
+
+  function changeToAngryMood(uint256 _tokenId) public {
+    require(msg.sender == ownerOf(_tokenId), 'Not the owner');
+    require(
+      _exists(_tokenId),
+      'ERC721Metadata: URI query for nonexistent token'
+    );
+    require(!tokenToOwner[_tokenId].angry);
+
+    tokenToOwner[_tokenId].happy = false;
+    tokenToOwner[_tokenId].sad = false;
+    tokenToOwner[_tokenId].angry = true;
+    tokenToOwner[_tokenId].tired = false;
+  }
+
+  function changeToTiredMood(uint256 _tokenId) public {
+    require(msg.sender == ownerOf(_tokenId), 'Not the owner');
+    require(
+      _exists(_tokenId),
+      'ERC721Metadata: URI query for nonexistent token'
+    );
+    require(!tokenToOwner[_tokenId].tired);
+
+    tokenToOwner[_tokenId].happy = false;
+    tokenToOwner[_tokenId].sad = false;
+    tokenToOwner[_tokenId].angry = false;
+    tokenToOwner[_tokenId].tired = true;
   }
 
   //only owner
@@ -175,6 +265,14 @@ contract NFT is ERC721Enumerable, Ownable {
     onlyOwner
   {
     baseUriSecondary = _newbaseUriSecondary;
+  }
+
+  function setBaseUriThird(string memory _newbaseUriThird) public onlyOwner {
+    baseUriThird = _newbaseUriThird;
+  }
+
+  function setBaseUriForth(string memory _newbaseUriForth) public onlyOwner {
+    baseUriForth = _newbaseUriForth;
   }
 
   function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
