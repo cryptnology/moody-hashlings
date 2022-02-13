@@ -1,5 +1,4 @@
-import { artifacts } from 'truffle';
-
+/* eslint-disable no-undef */
 const NFT = artifacts.require('NFT');
 require('dotenv').config();
 

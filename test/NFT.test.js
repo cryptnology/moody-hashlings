@@ -1,16 +1,16 @@
 /* eslint-disable no-undef */
-import { artifacts } from 'truffle';
-
 const NFT = artifacts.require('./NFT.sol');
 const web3 = require('web3');
 
 require('chai').use(require('chai-as-promised')).should();
 
-contract('NFT', async ([deployer, user1, user2, user3]) => {
+contract('NFT', async ([deployer, user1, user2]) => {
   const name = 'NFT Collection';
   const symbol = 'NFTC';
   const baseUri = 'https://baseuri/';
   const baseUriSecondary = 'https://baseurisecondary/';
+  const baseUriThird = 'https://baseurithird/';
+  const baseUriForth = 'https://baseuriforth/';
   const price = web3.utils.toWei('0.1', 'ether');
   let nftContract;
   let nft;
@@ -18,7 +18,14 @@ contract('NFT', async ([deployer, user1, user2, user3]) => {
 
   before(async () => {
     // Deploy contract
-    nftContract = await NFT.new(name, symbol, baseUri, baseUriSecondary);
+    nftContract = await NFT.new(
+      name,
+      symbol,
+      baseUri,
+      baseUriSecondary,
+      baseUriThird,
+      baseUriForth
+    );
     // Mint an NFT
     nft = await nftContract.mint(1, { from: user1, value: price });
     nft2 = await nftContract.mint(1, { from: user2, value: price });
@@ -47,6 +54,14 @@ contract('NFT', async ([deployer, user1, user2, user3]) => {
     it('tracks the secondary base uri', async () => {
       const result = await nftContract.baseUriSecondary();
       result.should.equal(baseUriSecondary, 'base uri is correct');
+    });
+    it('tracks the third base uri', async () => {
+      const result = await nftContract.baseUriThird();
+      result.should.equal(baseUriThird, 'base uri is correct');
+    });
+    it('tracks the forth base uri', async () => {
+      const result = await nftContract.baseUriForth();
+      result.should.equal(baseUriForth, 'base uri is correct');
     });
     it('tracks the base extension', async () => {
       const baseExtension = '.json';
@@ -119,7 +134,7 @@ contract('NFT', async ([deployer, user1, user2, user3]) => {
       let tokenUri = await nftContract.tokenURI(tokenId, { from: user1 });
       tokenUri.should.equal(`${baseUri}${tokenId}.json`, 'base uri is correct');
       // Change the base uri to base uri secondary
-      await nftContract.changeBaseURI(tokenId, { from: user1 });
+      await nftContract.changeToSadMood(tokenId, { from: user1 });
       tokenUri = await nftContract.tokenURI(tokenId, { from: user1 });
       tokenUri.should.equal(
         `${baseUriSecondary}${tokenId}.json`,
@@ -138,12 +153,16 @@ contract('NFT', async ([deployer, user1, user2, user3]) => {
         'base uri is correct'
       );
       // Change the base uri secondary back to base uri
-      await nftContract.changeBaseURI(tokenId, { from: user1 });
+      await nftContract.changeToHappyMood(tokenId, { from: user1 });
       tokenUri = await nftContract.tokenURI(tokenId, { from: user1 });
       tokenUri.should.equal(`${baseUri}${tokenId}.json`, 'base uri is correct');
     });
     it('rejects if not the owner', async () => {
-      await nftContract.changeBaseURI(tokenId, { from: user2 }).should.be
+      await nftContract.changeToHappyMood(tokenId, { from: user2 }).should.be
+        .rejected;
+    });
+    it('rejects if changing a mood that has alreadly been assigned', async () => {
+      await nftContract.changeToHappyMood(tokenId, { from: user1 }).should.be
         .rejected;
     });
   });

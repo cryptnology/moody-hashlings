@@ -135,19 +135,10 @@ contract NFT is ERC721Enumerable, Ownable {
       'ERC721Metadata: URI query for nonexistent token'
     );
 
-    bool happyMood = tokenToOwner[_tokenId].happy;
     bool sadMood = tokenToOwner[_tokenId].sad;
     bool angryMood = tokenToOwner[_tokenId].angry;
+    bool tiredMood = tokenToOwner[_tokenId].tired;
 
-    if (happyMood) {
-      string memory currentBaseUri = _baseURI();
-      return
-        bytes(currentBaseUri).length > 0
-          ? string(
-            abi.encodePacked(currentBaseUri, _tokenId.toString(), baseExtension)
-          )
-          : '';
-    }
     if (sadMood) {
       string memory currentBaseUriSecondary = _baseUriSecondary();
       return
@@ -174,15 +165,24 @@ contract NFT is ERC721Enumerable, Ownable {
           )
           : '';
     }
-    string memory currentBaseUriForth = _baseUriForth();
-    return
-      bytes(currentBaseUriForth).length > 0
-        ? string(
-          abi.encodePacked(
-            currentBaseUriForth,
-            _tokenId.toString(),
-            baseExtension
+    if (tiredMood) {
+      string memory currentBaseUriForth = _baseUriForth();
+      return
+        bytes(currentBaseUriForth).length > 0
+          ? string(
+            abi.encodePacked(
+              currentBaseUriForth,
+              _tokenId.toString(),
+              baseExtension
+            )
           )
+          : '';
+    }
+    string memory currentBaseUri = _baseURI();
+    return
+      bytes(currentBaseUri).length > 0
+        ? string(
+          abi.encodePacked(currentBaseUri, _tokenId.toString(), baseExtension)
         )
         : '';
   }
