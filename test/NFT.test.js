@@ -8,7 +8,7 @@ contract('NFT', async ([deployer, user1, user2, user3]) => {
   const symbol = 'NFTC';
   const baseUri = 'https://baseuri/';
   const baseUriSecondary = 'https://baseurisecondary/';
-  const price = web3.utils.toWei('1', 'ether');
+  const price = web3.utils.toWei('0.1', 'ether');
   let nftContract;
   let nft;
   const ETHER_ADDRESS = '0x0000000000000000000000000000000000000000';
