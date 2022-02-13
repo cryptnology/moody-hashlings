@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+import { artifacts } from 'truffle';
+
 const NFT = artifacts.require('./NFT.sol');
 const web3 = require('web3');
 
