@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { connect } from './redux/blockchain/blockchainActions';
+// import { connect } from './redux/blockchain/blockchainActions';
 import { fetchData } from './redux/data/dataActions';
 // import { create } from 'ipfs-http-client';
 import Page from './components/Page';
-import Connect from './components/Connect';
 import Content from './components/Content';
-import { HeaderLanding, HeaderMain, Footer } from 'components';
+import { HeaderLanding, HeaderMain, Footer, LandingContent } from 'components';
 import Modal from './components/Modal';
 
 function App() {
@@ -23,7 +22,7 @@ function App() {
   }, [blockchain.smartContract, blockchain.account, dispatch]);
 
   return (
-    <div className='font-body'>
+    <div className='font-body text-themeLightBlue'>
       <div>
         {blockchain.account === '' || blockchain.smartContract === null ? (
           <>
@@ -35,14 +34,7 @@ function App() {
                 errorMsg={blockchain.errorMsg}
               />
             )}
-            <Connect
-              errorMsg={blockchain.errorMsg}
-              dispatch={dispatch}
-              connect={connect}
-            />
-            <div className='pt-28 md:hidden'>
-              <Footer />
-            </div>
+            <LandingContent />
           </>
         ) : (
           <>
@@ -65,11 +57,9 @@ function App() {
               </Route>
               <Redirect from='/' exact to='/home' />
             </Switch>
-            <div className='pt-28'>
-              <Footer />
-            </div>
           </>
         )}
+        <Footer />
       </div>
     </div>
   );

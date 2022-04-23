@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import { SocialLinks, ConnectWallet } from '../../common';
+import { ConnectWallet } from '../../common';
 
 export function HeaderLanding({ connect, dispatch }) {
   return (
@@ -12,12 +12,7 @@ export function HeaderLanding({ connect, dispatch }) {
           animate={{ y: 0 }}
           transition={{ delay: 0.2, type: 'spring', stiffness: 50 }}
         >
-          <h1 className='font-title text-themeLightBlue text-2xl'>
-            MOODY HASHLINGS
-          </h1>
-          <div className='hidden md:flex'>
-            <SocialLinks />
-          </div>
+          <h1 className='text-2xl'>MOODY HASHLINGS</h1>
           <ConnectWallet connect={connect} dispatch={dispatch} />
         </motion.div>
       </header>

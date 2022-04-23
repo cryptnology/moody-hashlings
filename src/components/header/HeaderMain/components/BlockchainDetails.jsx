@@ -21,9 +21,7 @@ export function BlockchainDetails({ account, network, balance, burgerMenu }) {
           type: 'spring',
           stiffness: 50,
         }}
-        className={`${
-          burgerMenu ? '' : 'hidden lg:inline-flex mr-5'
-        } font-title text-themeLightBlue`}
+        className={`${burgerMenu ? '' : 'hidden lg:inline-flex mr-5'}`}
       >
         {network}
       </motion.li>
@@ -37,7 +35,7 @@ export function BlockchainDetails({ account, network, balance, burgerMenu }) {
         }}
         className={`${
           burgerMenu ? 'sm:hidden ml-5' : 'hidden sm:inline-flex'
-        } font-title text-themeLightBlue mr-1`}
+        } mr-1`}
       >
         {balance}
       </motion.li>
@@ -51,7 +49,7 @@ export function BlockchainDetails({ account, network, balance, burgerMenu }) {
         }}
         className={`${
           burgerMenu ? 'sm:hidden ml-1 mr-5' : 'hidden sm:inline-flex mr-5'
-        } font-title font-bold text-themeLightBlue`}
+        } font-bold`}
       >
         {network === 'Rinkeby' ? 'ETH' : 'MATIC'}
       </motion.li>
@@ -68,7 +66,7 @@ export function BlockchainDetails({ account, network, balance, burgerMenu }) {
           <a
             className={`${
               burgerMenu ? 'xsm:hidden' : 'hidden xsm:inline-flex mr-5'
-            } font-title tracking-widest text-themeLightBlue`}
+            } tracking-widest`}
             href={blockchainExplorerURL(account)}
             target='_blank'
             rel='noopener noreferrer'

@@ -13,11 +13,13 @@ module.exports = {
     extend: {
       colors: {
         themeLightBlue: '#174463;',
+        themeLightGrey: '#E9EDF8',
       },
       fontFamily: {
-        body: ['Nunito', 'Quicksand'],
-        // title: ['Indie Flower'],
-        title: ['Patrick Hand'],
+        body: ['Patrick Hand', 'Nunito', 'Quicksand'],
+      },
+      spacing: {
+        570: '35.625rem',
       },
     },
   },
